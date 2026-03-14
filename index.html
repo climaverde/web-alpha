@@ -33,6 +33,95 @@
         body {
             font-family: 'Montserrat', sans-serif;
         }
+
+        .carousel-track {
+            position: relative;
+            width: 100%;
+            min-height: 28rem;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: min(100%, 18rem);
+            aspect-ratio: 3 / 4;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.18);
+            transform-origin: center;
+            transition: transform 450ms ease, opacity 450ms ease, filter 450ms ease;
+            will-change: transform, opacity;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-slide video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #0f172a;
+        }
+
+        .carousel-slide[data-offset="0"] {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            z-index: 5;
+        }
+
+        .carousel-slide[data-offset="-1"] {
+            transform: translate(calc(-50% - clamp(8rem, 18vw, 12rem)), -50%) scale(0.88);
+            opacity: 0.65;
+            z-index: 4;
+        }
+
+        .carousel-slide[data-offset="1"] {
+            transform: translate(calc(-50% + clamp(8rem, 18vw, 12rem)), -50%) scale(0.88);
+            opacity: 0.65;
+            z-index: 4;
+        }
+
+        .carousel-slide[data-offset="-2"] {
+            transform: translate(calc(-50% - clamp(12rem, 29vw, 19rem)), -50%) scale(0.72);
+            opacity: 0;
+            z-index: 3;
+        }
+
+        .carousel-slide[data-offset="2"] {
+            transform: translate(calc(-50% + clamp(12rem, 29vw, 19rem)), -50%) scale(0.72);
+            opacity: 0;
+            z-index: 3;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-track {
+                min-height: 22rem;
+            }
+
+            .carousel-slide {
+                width: min(70vw, 16rem);
+            }
+
+            .carousel-slide[data-offset="-1"] {
+                transform: translate(calc(-50% - 5.4rem), -50%) scale(0.84);
+            }
+
+            .carousel-slide[data-offset="1"] {
+                transform: translate(calc(-50% + 5.4rem), -50%) scale(0.84);
+            }
+
+            .carousel-slide[data-offset="-2"] {
+                transform: translate(calc(-50% - 8.2rem), -50%) scale(0.68);
+            }
+
+            .carousel-slide[data-offset="2"] {
+                transform: translate(calc(-50% + 8.2rem), -50%) scale(0.68);
+            }
+        }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-700 dark:text-slate-300 antialiased">
@@ -45,6 +134,45 @@
             <p class="mt-4 text-lg text-primary font-semibold tracking-wider">PODA DE PALMERAS • TALA DE ÁRBOLES • MANTENIMIENTO DE JARDINES</p>
         </header>
         <main>
+            <section class="py-8 md:py-12" id="galeria">
+                <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-white via-lime-50 to-emerald-100 dark:from-slate-800 dark:via-slate-800 dark:to-slate-700 px-6 py-10 md:px-10 md:py-14 shadow-2xl">
+                    <div class="text-center max-w-2xl mx-auto mb-10">
+                        <p class="text-sm font-semibold uppercase tracking-[0.35em] text-primary">Trabajos recientes</p>
+                        <h2 class="mt-3 text-3xl md:text-4xl font-bold text-slate-800 dark:text-slate-100">Galería destacada</h2>
+                        <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">Un carrusel continuo con imágenes verticales de nuestros trabajos. Puede navegar con las flechas del teclado o con los controles laterales.</p>
+                    </div>
+                    <div class="relative">
+                        <button aria-label="Imagen anterior" class="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/85 dark:bg-slate-900/75 p-3 text-primary shadow-lg transition hover:scale-105 hover:bg-white dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-primary" id="carousel-prev" type="button">
+                            <span class="material-icons">arrow_back</span>
+                        </button>
+                        <div aria-label="Carrusel de imágenes de Clima Verde" class="carousel-track mx-auto max-w-5xl" id="carousel" tabindex="0">
+                            <article class="carousel-slide" data-index="0">
+                                <img alt="Trabajo de jardinería Clima Verde 1" src="./pic/demo_001.jpeg"/>
+                            </article>
+                            <article class="carousel-slide" data-index="1">
+                                <img alt="Trabajo de jardinería Clima Verde 2" src="./pic/demo_002.jpeg"/>
+                            </article>
+                            <article class="carousel-slide" data-index="2">
+                                <img alt="Trabajo de jardinería Clima Verde 3" src="./pic/demo_003.jpeg"/>
+                            </article>
+                            <article class="carousel-slide" data-index="3">
+                                <img alt="Trabajo de jardinería Clima Verde 4" src="./pic/demo_004.jpeg"/>
+                            </article>
+                            <article class="carousel-slide" data-index="4">
+                                <img alt="Trabajo de jardinería Clima Verde 5" src="./pic/demo_005.jpeg"/>
+                            </article>
+                            <article class="carousel-slide" data-index="5">
+                                <video aria-label="Vídeo vertical de un trabajo de Clima Verde" autoplay loop muted playsinline preload="auto">
+                                    <source src="./pic/vid_001.mp4" type="video/mp4"/>
+                                </video>
+                            </article>
+                        </div>
+                        <button aria-label="Imagen siguiente" class="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/85 dark:bg-slate-900/75 p-3 text-primary shadow-lg transition hover:scale-105 hover:bg-white dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-primary" id="carousel-next" type="button">
+                            <span class="material-icons">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
             <section class="py-16" id="services">
                 <h2 class="text-3xl font-bold text-center text-slate-800 dark:text-slate-100 mb-12">Nuestros Servicios</h2>
                 <div class="space-y-16">
@@ -138,8 +266,81 @@
         </footer>
     </div>
     <script>
-        // Set the current year in the footer
-        document.getElementById('year').textContent = new Date().getFullYear(); 
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const carousel = document.getElementById('carousel');
+        const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+        const videos = Array.from(carousel.querySelectorAll('video'));
+        const prevButton = document.getElementById('carousel-prev');
+        const nextButton = document.getElementById('carousel-next');
+        let activeIndex = 0;
+
+        function ensureVideosPlaying() {
+            videos.forEach((video) => {
+                video.muted = true;
+                const playPromise = video.play();
+
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(() => {});
+                }
+            });
+        }
+
+        function getWrappedOffset(index) {
+            const total = slides.length;
+            let offset = index - activeIndex;
+
+            if (offset > total / 2) offset -= total;
+            if (offset < -total / 2) offset += total;
+
+            return Math.max(-2, Math.min(2, offset));
+        }
+
+        function renderCarousel() {
+            slides.forEach((slide, index) => {
+                const offset = getWrappedOffset(index);
+                slide.dataset.offset = String(offset);
+                slide.setAttribute('aria-hidden', offset === 0 ? 'false' : 'true');
+            });
+        }
+
+        function moveCarousel(direction) {
+            activeIndex = (activeIndex + direction + slides.length) % slides.length;
+            renderCarousel();
+        }
+
+        prevButton.addEventListener('click', () => moveCarousel(-1));
+        nextButton.addEventListener('click', () => moveCarousel(1));
+
+        document.addEventListener('keydown', (event) => {
+            const target = event.target;
+            const isEditable = target instanceof HTMLElement && (
+                target.tagName === 'INPUT' ||
+                target.tagName === 'TEXTAREA' ||
+                target.isContentEditable
+            );
+
+            if (isEditable) {
+                return;
+            }
+
+            if (event.key === 'ArrowLeft') {
+                moveCarousel(-1);
+            }
+
+            if (event.key === 'ArrowRight') {
+                moveCarousel(1);
+            }
+        });
+
+        renderCarousel();
+        ensureVideosPlaying();
+
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                ensureVideosPlaying();
+            }
+        });
     </script>
     </body>
 </html>
